@@ -1,7 +1,5 @@
-const { ListNode } = require('../extensions/list-node.js');
-
 /**
- * Implement the Queue with a given interface via linked list (use ListNode extension above).
+ * Implement the Queue with a given interface via linked list.
  *
  * @example
  * const queue = new Queue();
@@ -22,7 +20,7 @@ class Queue {
   }
 
   enqueue(value) {
-    const node = new ListNode(value);
+    const node = { value, next: null };
     if (this._tail === null) {
       this._head = node;
     } else {
