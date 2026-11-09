@@ -52,6 +52,7 @@ class BinarySearchTree {
     }
     if (current === null) return;
 
+    let replacement;
     if (current.left !== null && current.right !== null) {
       let successorParent = current;
       let successor = current.right;
@@ -59,18 +60,22 @@ class BinarySearchTree {
         successorParent = successor;
         successor = successor.left;
       }
-      current.data = successor.data;
-      parent = successorParent;
-      current = successor;
+      if (successorParent !== current) {
+        successorParent.left = successor.right;
+        successor.right = current.right;
+      }
+      successor.left = current.left;
+      replacement = successor;
+    } else {
+      replacement = current.left !== null ? current.left : current.right;
     }
 
-    const child = current.left !== null ? current.left : current.right;
     if (parent === null) {
-      this._root = child;
+      this._root = replacement;
     } else if (parent.left === current) {
-      parent.left = child;
+      parent.left = replacement;
     } else {
-      parent.right = child;
+      parent.right = replacement;
     }
   }
 
